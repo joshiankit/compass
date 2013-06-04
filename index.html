@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <title>compass</title>
+	<style>
+			#compass {
+				
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				z-index: 10;
+			
+			}
+
+			#needle {
+
+				position: absolute;
+				top: 30px;
+				left: 89px;
+				z-index: 10;
+			}
+		</style>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" src="css/jquery.mobile-1.2.0.min.css">	
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+		<script type="text/javascript" charset="utf-8" src="script/jquery-1.8.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="script/jquery.mobile-1.2.0.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="script/cordova.js"></script>
+		<script src="jqRotate/jqRotate.js"></script>
+		
+	</head>
+	<body>
+		
+		<img src="image/compass.png" id="compass">
+		<img src="image/needle.png" id="needle">
+	</body>
+</html>
+<script>
+	document.addEventListener("deviceready", onDeviceReady, false);
+	function onDeviceReady() {
+		startCompass();
+	}
+
+	function startCompass() {
+		var options = { frequency: 50 };
+		//var options  {
+			//frequency : 50
+		//};
+
+		navigator.compass.watchHeading(onSuccess, onError, options);
+	}
+
+	function onSuccess(heading) {
+		$("#needle").rotate(-heading.magneticHeading);
+	}
+
+	function onError(compassError) {
+		alert("Compass error:" + compassError.code);
+	}
+
+</script>
